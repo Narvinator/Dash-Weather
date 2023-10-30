@@ -17,6 +17,18 @@ var weatherContent = $("#weather-content");
 
 var date = dayjs().format("MM/D/YYYY")
 
+$(document).on("submit", function(){
+    event.preventDefault();
+
+
+    var searchValue = cityInput.val().trim();
+
+    search(searchValue)
+    searchHistory(searchValue);
+    cityInput.val(""); 
+});
+
+
 function search(searchValue) {
 
 
@@ -176,3 +188,28 @@ function reload() {
 }
 
 reload();
+
+clearButton.on("click", function(){
+    
+    cities = [];
+    
+    listArray();
+    
+    $(this).addClass("hide");
+});
+
+function showClear() {
+    if (historyList.text() !== "") {
+        clearButton.removeClass("hide");
+    }
+}
+
+showClear()
+
+historyList.on("click","li.city-btn", function(event) {
+    // console.log($(this).data("value"));
+    var value = $(this).data("value");
+    search(value);
+    searchHistory(value); 
+
+});
