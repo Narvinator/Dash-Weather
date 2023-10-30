@@ -17,7 +17,7 @@ var weatherContent = $("#weather-content");
 
 var date = dayjs().format("MM/D/YYYY")
 
-function currentConditionsRequest(searchValue) {
+function search(searchValue) {
 
 
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&units=imperial&appid=" + key;
@@ -111,7 +111,7 @@ cityButton.on("click", function(event){
 
     var searchValue = cityInput.val().trim();
 
-    currentConditionsRequest(searchValue)
+    search(searchValue)
 
     cityInput.val(""); 
 });
@@ -147,7 +147,7 @@ function searchHistory(searchValue) {
 
 function listArray() {
 
-
+historyList.empty();
 
 
     cities.forEach(function(city){
@@ -160,3 +160,19 @@ function listArray() {
     localStorage.setItem("cities", JSON.stringify(cities));
 
 }
+
+function reload() {
+    if (localStorage.getItem("cities")) {
+        cities = JSON.parse(localStorage.getItem("cities"));
+        var lastIndex = cities.length - 1;
+
+        listArray();
+
+        if (cities.length !== 0) {
+            search(cities[lastIndex]);
+            weatherContent.removeClass("hide");
+        }
+    }
+}
+
+reload();
