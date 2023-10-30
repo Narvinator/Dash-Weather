@@ -1,17 +1,17 @@
-var key = "c30ab354a125069f3c860338a8a1704d"
-var cities = []
-var api = "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}"
+const key = "c30ab354a125069f3c860338a8a1704d"
+const api = "api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}"
+let cities = []
 
-var City = $("#current-city");
-var temp = $("#current-temp");
-var humidity = $("#current-humidity");
-var windSpeed = $("#current-wind-speed");
-var uvIndex = $("#uv-index");
+let City = $("#current-city");
+const temp = $("#current-temp");
+const humidity = $("#current-humidity");
+const windSpeed = $("#current-wind-speed");
+const uvIndex = $("#uv-index");
 
-var historyList = $('#search-history-list');
-var cityInput = $("#search-city");
-var cityButton = $("#search-city-button");
-var clearButton = $("#clear-history");
+let historyList = $('#search-history-list');
+let cityInput = $("#search-city");
+let cityButton = $("#search-city-button");
+let clearButton = $("#clear-history");
 
 var weatherContent = $("#weather-content");
 
@@ -75,36 +75,36 @@ function search(searchValue) {
             $('#five-day-forecast').empty();
             for (var i = 1; i < response.list.length; i+=8) {
 
-                var forecastDateString = dayjs(response.list[i].dt_txt).format("L");
+                let forecastDateString = dayjs(response.list[i].dt_txt).format("MM/D/YYYY");
                 console.log(forecastDateString);
 
-                var forecastCol = $("<div class='col-12 col-md-6 col-lg forecast-day mb-3'>");
-                var forecastCard = $("<div class='card'>");
-                var forecastCardBody = $("<div class='card-body'>");
-                var forecastDate = $("<h5 class='card-title'>");
-                var forecastIcon = $("<img>");
-                var forecastTemp = $("<p class='card-text mb-0'>");
-                var forecastHumidity = $("<p class='card-text mb-0'>");
+                let CurrCol = $("<div class='col-12 col-md-6 col-lg forecast-day mb-3'>");
+                let CurrCard = $("<div class='card'>");
+                let CurrCardBody = $("<div class='card-body'>");
+                let CurrDate = $("<h5 class='card-title'>");
+                let CurrIcon = $("<img>");
+                let CurrTemp = $("<p class='card-text mb-0'>");
+                let CurrHumidity = $("<p class='card-text mb-0'>");
 
 
-                $('#five-day-forecast').append(forecastCol);
-                forecastCol.append(forecastCard);
-                forecastCard.append(forecastCardBody);
+                $('#five-day-forecast').append(CurrCol);
+                CurrCol.append(CurrCard);
+                CurrCard.append(CurrCardBody);
 
-                forecastCardBody.append(forecastDate);
-                forecastCardBody.append(forecastIcon);
-                forecastCardBody.append(forecastTemp);
-                forecastCardBody.append(forecastHumidity);
+                CurrCardBody.append(CurrDate);
+                CurrCardBody.append(CurrIcon);
+                CurrCardBody.append(CurrTemp);
+                CurrCardBody.append(CurrHumidity);
 
-                forecastIcon.attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
-                forecastIcon.attr("alt", response.list[i].weather[0].main)
-                forecastDate.text(forecastDateString);
-                forecastTemp.text(response.list[i].main.temp);
-                forecastTemp.prepend("Temp: ");
-                forecastTemp.append("&deg;F");
-                forecastHumidity.text(response.list[i].main.humidity);
-                forecastHumidity.prepend("Humidity: ");
-                forecastHumidity.append("%");
+                CurrIcon.attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
+                CurrIcon.attr("alt", response.list[i].weather[0].main)
+                CurrDate.text(forecastDateString);
+                CurrTemp.text(response.list[i].main.temp);
+                CurrTemp.prepend("Temp: ");
+                CurrTemp.append("&deg;F");
+                CurrHumidity.text(response.list[i].main.humidity);
+                CurrHumidity.prepend("Humidity: ");
+                CurrHumidity.append("%");
 
 
 
@@ -207,7 +207,7 @@ function showClear() {
 showClear()
 
 historyList.on("click","li.city-btn", function(event) {
-    // console.log($(this).data("value"));
+    
     var value = $(this).data("value");
     search(value);
     searchHistory(value); 
