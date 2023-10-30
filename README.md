@@ -20,3 +20,6 @@ Anyone with access to the webslink can use the application
 
 This application uses the MIT License
 
+## Screenshot
+
+![screenshot weather](https://github.com/Narvinator/Dash-Weather/assets/144052327/6775e0b6-e6f0-40f3-a69d-5279669739d8)
