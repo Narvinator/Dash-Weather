@@ -28,10 +28,10 @@ function currentConditionsRequest(searchValue) {
       return response.json();
     }).then(function(response){
         console.log(response);
-        city.text(response.name);
-        city.append("<small class='text-muted' id='current-date'>");
+        City.text(response.name);
+        City.append("<small class='text-muted' id='current-date'>");
         $("#current-date").text("(" + date + ")");
-        city.append("<img src='https://openweathermap.org/img/w/" + response.weather[0].icon + ".png' alt='" + response.weather[0].main + "' />" )
+        City.append("<img src='https://openweathermap.org/img/w/" + response.weather[0].icon + ".png' alt='" + response.weather[0].main + "' />" )
         temp.text(response.main.temp);
         temp.append("&deg;F");
         humidity.text(response.main.humidity + "%");
@@ -116,3 +116,47 @@ cityButton.on("click", function(event){
     cityInput.val(""); 
 });
 
+
+function searchHistory(searchValue) {
+
+    if (searchValue) {
+
+        if (cities.indexOf(searchValue) === -1) {
+            cities.push(searchValue);
+
+
+            listArray();
+            clearButton.removeClass("hide");
+            weatherContent.removeClass("hide");
+        } else {
+
+            var removeIndex = cities.indexOf(searchValue);
+            cities.splice(removeIndex, 1);
+
+
+            cities.push(searchValue);
+
+
+            listArray();
+            clearButton.removeClass("hide");
+            weatherContent.removeClass("hide");
+        }
+    }
+
+}
+
+function listArray() {
+
+
+
+
+    cities.forEach(function(city){
+        var searchHistoryItem = $('<li class="list-group-item city-btn">');
+        searchHistoryItem.attr("data-value", city);
+        searchHistoryItem.text(city);
+        historyList.prepend(searchHistoryItem);
+    });
+
+    localStorage.setItem("cities", JSON.stringify(cities));
+
+}
